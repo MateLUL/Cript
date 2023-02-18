@@ -6,7 +6,6 @@ import java.util.*;
 public class Cript {
 
     public static String binaryEncode (String source, String input) {
-        //ArrayLists for storing the textToBeEncoded and converted encodedBinaries
         ArrayList<String> textToBeEncoded = new ArrayList<>();
         ArrayList<String> encodedBinaries = new ArrayList<>();
 
@@ -32,7 +31,7 @@ public class Cript {
         }
 
 
-        //Converting the textToBeEncoded to binary
+        //Converting the text to binary
         //Number of lines
         for (int i = 0; i < textToBeEncoded.size(); i++) {
             //Number of letters in a line
@@ -62,7 +61,7 @@ public class Cript {
         }
 
 
-        //Creating the output file, writing the encodedBinaries into it, and returning
+        //Creating the output file, writing the binaries into it, and returning
         if ("file".equals(source)) {
             try {
                 File outputFile = new File(input.replace(".txt", "Encrypted.txt"));
@@ -84,6 +83,85 @@ public class Cript {
             String encodedText = encodedBinaries.toString().replace("[", "").replace("]", "").replace(",", "").trim();
 
             return "The encrypted text: " + encodedText;
+        }
+    }
+
+    public static String binaryDecode (String source, String input) {
+        ArrayList<String> binaryToBeDecoded = new ArrayList<>();
+        ArrayList<String> decodedText = new ArrayList<>();
+
+
+        //Reading and storing the file's content in a variable
+        if ("file".equals(source)) {
+            try {
+                File inputFile = new File(input);
+                String fileContent = Files.readString(inputFile.toPath());
+                String[] binaries = fileContent.split(" ");
+                binaryToBeDecoded.addAll(Arrays.asList(binaries));
+            }
+            catch (NoSuchFileException e) {
+                System.err.println("No such file detected.");
+                System.exit(1);
+            }
+            catch (IOException e) {
+                System.err.println("Cannot read file.");
+                System.exit(1);
+            }
+        }
+        else if ("text".equals(source)) {
+            String[] binaries = input.split(" ");
+            binaryToBeDecoded.addAll(Arrays.asList(binaries));
+        }
+
+
+        //Decoding the text and storing it in the ArrayList
+        for (int i = 0; i < binaryToBeDecoded.size(); i++) {
+            int sum = 0;
+            int n = 0;
+
+            //Starting at the end of the octet
+            for (int j = binaryToBeDecoded.get(i).length() - 1; j != 0 ; j--) {
+                char currentNumber = binaryToBeDecoded.get(i).charAt(j);
+
+                int twoPower = (int) Math.pow(2, n);
+                if (currentNumber == '1')
+                    sum += twoPower;
+
+                n++;
+            }
+
+            char currentNumberAsAscii = (char) sum;
+            decodedText.add(String.valueOf(currentNumberAsAscii));
+        }
+
+
+        //Creating the output file
+        if ("file".equals(source)) {
+            try {
+                File outputFile = new File(input.replace(".txt", "Decrypted.txt"));
+                FileWriter output = new FileWriter(outputFile);
+
+                for (int i = 0; i < decodedText.size(); i++)
+                    output.write(decodedText.get(i));
+
+                output.close();
+                return "The decrypted text was saved in " + outputFile.getCanonicalPath();
+            }
+            catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        //If it was a text, clean up and return the decoded text
+        else {
+            StringBuilder decodedBinaries = new StringBuilder();
+            for (int i = 0; i < decodedText.size(); i++) {
+                if (decodedText.get(i).equals("\n"))
+                    decodedBinaries.append(" <enter> ");
+                else
+                    decodedBinaries.append(decodedText.get(i));
+            }
+
+            return "The decrypted text: " + decodedBinaries;
         }
     }
 
@@ -119,14 +197,22 @@ public class Cript {
         //Error handling
         errorHandling(args);
 
+
         //Storing the arguments in variables for readability
         String method = args[0];
         String process = args[1];
         String source = args[2];
         String input = args[3];
 
-        //Calling the appropriate functions
-        if ("binary".equals(method) && "encode".equals(process))
-            System.out.println(binaryEncode(source, input));
+
+        //Binary
+        if ("binary".equals(method)) {
+            if ("encode".equals(process))
+                //Encryption
+                System.out.println(binaryEncode(source, input));
+            else
+                //Decryption
+                System.out.println(binaryDecode(source, input));
+        }
     }
 }
