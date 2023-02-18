@@ -5,8 +5,9 @@ Cript is an easy-to-use and versatile encryption and decryption tool, currently 
 To use the program, you must build it first using `javac`.
 `javac Cript.java`
 
-##Usage
+## Usage
 The usage is simple.
+
 `java Cript <Encryption method> <Process> <Source> <Content>`
 
 `<Encryption method>`: there is currently 1 method available, **binary**.
