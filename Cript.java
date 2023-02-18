@@ -64,7 +64,7 @@ public class Cript {
         //Creating the output file, writing the binaries into it, and returning
         if ("file".equals(source)) {
             try {
-                File outputFile = new File(input.replace(".txt", "Encrypted.txt"));
+                File outputFile = new File(input.replace(".txt", "Encoded.txt"));
                 FileWriter output = new FileWriter(outputFile);
 
                 for (int i = 0; i < encodedBinaries.size(); i++) {
@@ -72,7 +72,7 @@ public class Cript {
                 }
 
                 output.close();
-                return "The encrypted text was saved in " + outputFile.getCanonicalPath();
+                return "The encoded text was saved in " + outputFile.getCanonicalPath();
             }
             catch (IOException e) {
                 throw new RuntimeException(e);
@@ -82,7 +82,7 @@ public class Cript {
         else {
             String encodedText = encodedBinaries.toString().replace("[", "").replace("]", "").replace(",", "").trim();
 
-            return "The encrypted text: " + encodedText;
+            return "The encoded text: " + encodedText;
         }
     }
 
@@ -113,7 +113,6 @@ public class Cript {
             binaryToBeDecoded.addAll(Arrays.asList(binaries));
         }
 
-
         //Decoding the text and storing it in the ArrayList
         for (int i = 0; i < binaryToBeDecoded.size(); i++) {
             int sum = 0;
@@ -122,6 +121,11 @@ public class Cript {
             //Starting at the end of the octet
             for (int j = binaryToBeDecoded.get(i).length() - 1; j != 0 ; j--) {
                 char currentNumber = binaryToBeDecoded.get(i).charAt(j);
+
+                if (currentNumber != '0' && currentNumber != '1') {
+                    System.err.println("Not a binary.");
+                    System.exit(1);
+                }
 
                 int twoPower = (int) Math.pow(2, n);
                 if (currentNumber == '1')
@@ -138,14 +142,14 @@ public class Cript {
         //Creating the output file
         if ("file".equals(source)) {
             try {
-                File outputFile = new File(input.replace(".txt", "Decrypted.txt"));
+                File outputFile = new File(input.replace(".txt", "Decoded.txt"));
                 FileWriter output = new FileWriter(outputFile);
 
                 for (int i = 0; i < decodedText.size(); i++)
                     output.write(decodedText.get(i));
 
                 output.close();
-                return "The decrypted text was saved in " + outputFile.getCanonicalPath();
+                return "The decoded text was saved in " + outputFile.getCanonicalPath();
             }
             catch (IOException e) {
                 throw new RuntimeException(e);
@@ -161,7 +165,7 @@ public class Cript {
                     decodedBinaries.append(decodedText.get(i));
             }
 
-            return "The decrypted text: " + decodedBinaries;
+            return "The decoded text: " + decodedBinaries;
         }
     }
 
@@ -178,7 +182,12 @@ public class Cript {
         }
         else {
             if ("help".equals(args[0])) {
-                //documentation
+                System.out.println("Usage: java Cript <Method> <Process> <Source> <Content>");
+                System.out.println("\t- Method: binary");
+                System.out.println("\t- Process: encode / decode");
+                System.out.println("\t- Source: text / file");
+                System.out.println("\t- Content: \n\t\tif source was text: \"This is the text I want to encode\"\n\t\tif source was file: /path/to/file.txt");
+                System.out.println("Ex.: java Cript binary encode text \"I like turtles\"");
                 System.exit(0);
             }
             else {
@@ -208,10 +217,10 @@ public class Cript {
         //Binary
         if ("binary".equals(method)) {
             if ("encode".equals(process))
-                //Encryption
+                //Encoding
                 System.out.println(binaryEncode(source, input));
             else
-                //Decryption
+                //Decoding
                 System.out.println(binaryDecode(source, input));
         }
     }
