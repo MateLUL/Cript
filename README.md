@@ -17,7 +17,7 @@ The usage is simple.
 
 - **Source**: you can choose whether you want to use a .txt file (using `file`), or pass through your text directly (using `text`).
 
-- **Content**: if you selected to use a file, you also have to choose which file you would like to use. You can either use an *absolute* or *canonical* path. But, if you selected text, you can type your message directly.
+- **Content**: if you selected to use a file, you also have to choose which file you would like to use. You can either use an *absolute* or *canonical* path. But, if you selected text, you can type your message here directly, with quotation marks.
 
 
 ### For example:
