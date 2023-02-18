@@ -13,11 +13,11 @@ The usage is simple.
 
 - **Encryption method**: there is currently 1 method available, `binary`.
 
-- **Process**: there is currently 1 process available, `encode`.
+- **Process**: there is currently 1 encryption method that supports both encoding (`encode`) and decoding (`decode`), which is binary.
 
 - **Source**: you can choose whether you want to use a .txt file (using `file`), or pass through your text directly (using `text`).
 
-- **Content**: if you selected to use a file, you also have to choose which file you would like to use. You can either use an *absolute* or *canonical* path. But, if you selected text, you can type your message here directly, with quotation marks.
+- **Content**: if you selected to use a file, you also have to choose which file you would like to use. But, if you selected text, you can type your message here directly, with quotation marks.
 
 
 ### For example:
