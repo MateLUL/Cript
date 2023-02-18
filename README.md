@@ -3,6 +3,7 @@ Cript is an easy-to-use and versatile encryption and decryption tool, currently 
 
 ## Building
 To use the program, you must build it first using `javac`.
+
 `javac Cript.java`
 
 ## Usage
@@ -10,20 +11,20 @@ The usage is simple.
 
 `java Cript <Encryption method> <Process> <Source> <Content>`
 
-- *Encryption method*: there is currently 1 method available, **binary**.
+- **Encryption method**: there is currently 1 method available, `binary`.
 
-- *Process*: there is currently 1 process available, **encode**.
+- **Process**: there is currently 1 process available, `encode`.
 
-- *Source*: you can choose whether you want to use a .txt file (using **file**), or pass through your text directly (using **text**).
+- **Source**: you can choose whether you want to use a .txt file (using `file`), or pass through your text directly (using `text`).
 
-- *Content*: if you selected to use a file, you also have to choose which file you would like to use. You can either use an absolute or canonical path. But, if you selected **text**, you can type your message directly.
+- **Content**: if you selected to use a file, you also have to choose which file you would like to use. You can either use an absolute or canonical path. But, if you selected text, you can type your message directly.
 
 
 ### For example:
 
 `java Cript binary encode file myFile.txt` 
 
-will produce a new .txt file, with the binary encryption of myFile.txt's content, with the output of:
+will produce a new .txt file, with the binary encryption of *myFile.txt*'s content, with the output of:
 
 *The encrypted text was saved in /home/user/myFileEncrypted.txt*
 
