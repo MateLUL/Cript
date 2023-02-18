@@ -19,7 +19,7 @@ The usage is simple.
 - *Content*: if you selected to use a file, you also have to choose which file you would like to use. You can either use an absolute or canonical path. But, if you selected **text**, you can type your message directly.
 
 
-For example:
+### For example:
 
 `java Cript binary encode file myFile.txt` 
 
