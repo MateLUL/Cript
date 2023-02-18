@@ -11,7 +11,7 @@ The usage is simple.
 
 `<Encryption method>`: there is currently 1 method available, **binary**.
 
-`<Process>`: there is currently 1 process available, *encode*.
+`<Process>`: there is currently 1 process available, **encode**.
 
 `<Source>`: you can choose whether you want to use a .txt file (using **file**), or pass through your text directly (using **text**).
 
