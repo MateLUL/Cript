@@ -13,7 +13,7 @@ The usage is simple.
 
 - **Method**: there are currently 2 methods available, `binary` and `base64`.
 
-- **Process**: there are currently 2 method that supports both encoding (`encode`) and decoding (`decode`), binary and base64.
+- **Process**: there are currently 2 methods that support both encoding (`encode`) and decoding (`decode`), binary and base64.
 
 - **Source**: choose whether you want to use a .txt file (using `file`), or type in your text directly (using `text`).
 
