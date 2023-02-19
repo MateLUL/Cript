@@ -18,11 +18,11 @@ public class Cript {
                 textToBeEncoded.add(fileContent);
             }
             catch (NoSuchFileException e) {
-                System.err.println("No such file detected.");
+                System.err.println("No such file detected (NoSuchFileException).");
                 System.exit(1);
             }
             catch (IOException e) {
-                System.err.println("Cannot read file.");
+                System.err.println("Cannot read file (IOException).");
                 System.exit(1);
             }
         }
@@ -64,7 +64,7 @@ public class Cript {
         //Creating the output file, writing the binaries into it, and returning
         if ("file".equals(source)) {
             try {
-                File outputFile = new File(input.replace(".txt", "Encoded.txt"));
+                File outputFile = new File(input.replace(".txt", "BinaryEncoded.txt"));
                 FileWriter output = new FileWriter(outputFile);
 
                 for (int i = 0; i < encodedBinaries.size(); i++) {
@@ -75,7 +75,8 @@ public class Cript {
                 return "The encoded text was saved in " + outputFile.getCanonicalPath();
             }
             catch (IOException e) {
-                throw new RuntimeException(e);
+                System.err.println("The file cannot be created or cannot be written into (IOException).");
+                System.exit(1);
             }
         }
         //If it was a text, clean up and return the encoded text
@@ -84,6 +85,7 @@ public class Cript {
 
             return "The encoded text: " + encodedText;
         }
+        return null;
     }
 
     public static String binaryDecode (String source, String input) {
@@ -100,11 +102,11 @@ public class Cript {
                 binaryToBeDecoded.addAll(Arrays.asList(binaries));
             }
             catch (NoSuchFileException e) {
-                System.err.println("No such file detected.");
+                System.err.println("No such file detected (NoSuchFileException).");
                 System.exit(1);
             }
             catch (IOException e) {
-                System.err.println("Cannot read file.");
+                System.err.println("Cannot read file (IOException).");
                 System.exit(1);
             }
         }
@@ -142,7 +144,7 @@ public class Cript {
         //Creating the output file
         if ("file".equals(source)) {
             try {
-                File outputFile = new File(input.replace(".txt", "Decoded.txt"));
+                File outputFile = new File(input.replace(".txt", "BinaryDecoded.txt"));
                 FileWriter output = new FileWriter(outputFile);
 
                 for (int i = 0; i < decodedText.size(); i++)
@@ -152,7 +154,8 @@ public class Cript {
                 return "The decoded text was saved in " + outputFile.getCanonicalPath();
             }
             catch (IOException e) {
-                throw new RuntimeException(e);
+                System.err.println("The file cannot be created or cannot be written into (IOException).");
+                System.exit(1);
             }
         }
         //If it was a text, clean up and return the decoded text
@@ -167,6 +170,116 @@ public class Cript {
 
             return "The decoded text: " + decodedBinaries;
         }
+        return null;
+    }
+
+    public static String base64Encode (String source, String input) {
+        String textToBeEncoded = "";
+
+        //Reading and storing the file's content in a variable
+        if ("file".equals(source)) {
+            try {
+                File inputFile = new File(input);
+                textToBeEncoded = Files.readString(inputFile.toPath());
+            }
+            catch (NoSuchFileException e) {
+                System.err.println("No such file detected (NoSuchFileException).");
+                System.exit(1);
+            }
+            catch (IOException e) {
+                System.err.println("Cannot read file (IOException).");
+                System.exit(1);
+            }
+        }
+        else if ("text".equals(source)) {
+            textToBeEncoded = input;
+        }
+
+
+        //Encoding the string
+        String encodedText = Base64.getEncoder().encodeToString(textToBeEncoded.getBytes());
+
+
+        //Creating the output file, writing the encoded Base64 into it, and returning
+        if ("file".equals(source)) {
+            try {
+                File outputFile = new File(input.replace(".txt", "Base64Encoded.txt"));
+                FileWriter output = new FileWriter(outputFile);
+
+                output.write(encodedText);
+
+                output.close();
+                return "The encoded text was saved in " + outputFile.getCanonicalPath();
+            }
+            catch (IOException e) {
+                System.err.println("The file cannot be created or cannot be written into (IOException).");
+                System.exit(1);
+            }
+        }
+        //If it was a text, return the encoded text
+        else {
+            return "The encoded text: " + encodedText;
+        }
+        return null;
+    }
+
+    public static String base64Decode (String source, String input) {
+        String base64ToBeDecoded = "";
+
+
+        //Reading and storing the file's content in a variable
+        if ("file".equals(source)) {
+            try {
+                File inputFile = new File(input);
+                base64ToBeDecoded = Files.readString(inputFile.toPath());
+            }
+            catch (NoSuchFileException e) {
+                System.err.println("No such file detected (NoSuchFileException).");
+                System.exit(1);
+            }
+            catch (IOException e) {
+                System.err.println("Cannot read file (IOException).");
+                System.exit(1);
+            }
+        }
+        else if ("text".equals(source)) {
+            base64ToBeDecoded = input;
+        }
+
+
+        //Decoding the text and handling error
+        String decodedText = "";
+        try {
+            byte[] decodedTextInBites = Base64.getDecoder().decode(base64ToBeDecoded);
+            decodedText = new String(decodedTextInBites);
+        }
+        catch (IllegalArgumentException e) {
+            System.err.println("Not a Base64 string (IllegalArgumentException).");
+            System.exit(1);
+        }
+
+
+        //Creating the output file
+        if ("file".equals(source)) {
+            try {
+                File outputFile = new File(input.replace(".txt", "Base64Decoded.txt"));
+                FileWriter output = new FileWriter(outputFile);
+
+                output.write(decodedText);
+
+                output.close();
+                return "The decoded text was saved in " + outputFile.getCanonicalPath();
+            }
+            catch (IOException e) {
+                System.err.println("The file cannot be created or cannot be written into (IOException).");
+                System.exit(1);
+            }
+        }
+        //If it was a text, return the decoded text
+        else {
+            return "The decoded text: " + decodedText;
+        }
+        return null;
     }
 
     public static void errorHandling(String[] args) {
@@ -183,11 +296,11 @@ public class Cript {
         else {
             if ("help".equals(args[0])) {
                 System.out.println("Usage: java Cript <Method> <Process> <Source> <Content>");
-                System.out.println("\t- Method: binary");
+                System.out.println("\t- Method: binary / base64");
                 System.out.println("\t- Process: encode / decode");
                 System.out.println("\t- Source: text / file");
                 System.out.println("\t- Content: \n\t\tif source was text: \"This is the text I want to encode\"\n\t\tif source was file: /path/to/file.txt");
-                System.out.println("Ex.: java Cript binary encode text \"I like turtles\"");
+                System.out.println("Ex.: java Cript base64 encode text \"I like turtles\"");
                 System.exit(0);
             }
             else {
@@ -196,7 +309,7 @@ public class Cript {
             }
         }
 
-        if ((!"binary".equals(args[0])) || (!"encode".equals(args[1]) && !"decode".equals(args[1])) || (!"text".equals(args[2]) && !"file".equals(args[2]))) {
+        if ((!"binary".equals(args[0]) && !"base64".equals(args[0])) || (!"encode".equals(args[1]) && !"decode".equals(args[1])) || (!"text".equals(args[2]) && !"file".equals(args[2]))) {
             System.err.println("Wrong type of arguments. Check the documentation, or type 'java Cript help' for further help.");
             System.exit(1);
         }
@@ -222,6 +335,16 @@ public class Cript {
             else
                 //Decoding
                 System.out.println(binaryDecode(source, input));
+        }
+
+        //Base64
+        if ("base64".equals(method)) {
+            if ("encode".equals(process))
+                //Encoding
+                System.out.println(base64Encode(source, input));
+            else
+                //Decoding
+                System.out.println(base64Decode(source, input));
         }
     }
 }
