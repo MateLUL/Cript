@@ -26,7 +26,7 @@ The usage is simple.
 
 will produce a new .txt file, with the Base64 encoding of *myFile.txt*'s content, with the output of:
 
->The encoded text was saved in /home/user/myFileEncoded.txt
+>The encoded text was saved in /home/user/myFileBase64Encoded.txt
 
 
 `java Cript binary encode text "Hello World"`
