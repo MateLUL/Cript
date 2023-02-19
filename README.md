@@ -11,20 +11,20 @@ The usage is simple.
 
 `java Cript <Method> <Process> <Source> <Content>`
 
-- **Method**: there is currently 1 method available, `binary`.
+- **Method**: there are currently 2 methods available, `binary` and `base64`.
 
-- **Process**: there is currently 1 method that supports both encoding (`encode`) and decoding (`decode`), which is binary.
+- **Process**: there are currently 2 method that supports both encoding (`encode`) and decoding (`decode`), binary and base64.
 
-- **Source**: you can choose whether you want to use a .txt file (using `file`), or pass through your text directly (using `text`).
+- **Source**: choose whether you want to use a .txt file (using `file`), or type in your text directly (using `text`).
 
 - **Content**: if you selected to use a file, you can choose which file you would like to use. But, if you selected text, you can type your message here directly, with quotation marks.
 
 
 ### For example:
 
-`java Cript binary encode file myFile.txt` 
+`java Cript base64 encode file myFile.txt` 
 
-will produce a new .txt file, with the binary encoding of *myFile.txt*'s content, with the output of:
+will produce a new .txt file, with the Base64 encoding of *myFile.txt*'s content, with the output of:
 
 >The encoded text was saved in /home/user/myFileEncoded.txt
 
