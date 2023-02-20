@@ -1,8 +1,8 @@
 # Cript
 Cript is an easy-to-use and versatile encryption/decryption and encoding/decoding tool, currently in development, written in Java.
 
-## Building
-To use the program, you must build it first using `javac`.
+## Compiling
+To use the program, you must compile it first using `javac`.
 
 `javac Cript.java`
 
@@ -20,7 +20,7 @@ The usage is simple.
 - **Content**: if you selected to use a file, you can choose which file you would like to use. But, if you selected text, you can type your message here directly, with quotation marks.
 
 
-### For example:
+### Example:
 
 `java Cript base64 encode file myFile.txt` 
 
