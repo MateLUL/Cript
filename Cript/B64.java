@@ -18,8 +18,8 @@ public class B64 {
 
         //Decoding the text and handling error
         try {
-            byte[] decodedTextInBites = Base64.getDecoder().decode(b64ToBeDecoded);
-            decodedText = new String(decodedTextInBites);
+            byte[] decodedTextInBytes = Base64.getDecoder().decode(b64ToBeDecoded);
+            decodedText = new String(decodedTextInBytes);
         }
         catch (IllegalArgumentException e) {
             System.err.println("Not a Base64 string (IllegalArgumentException).");
