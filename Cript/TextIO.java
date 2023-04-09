@@ -44,7 +44,6 @@ public class TextIO {
             File outputFile = new File(input.replace(".txt", method + process + "d.txt"));
 
             try (FileWriter output = new FileWriter(outputFile)) {
-
                 if ("binary".equals(Cript.getMethod())) {
                     output.write(cleanedOutputText);
                 } else {

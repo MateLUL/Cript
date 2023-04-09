@@ -11,9 +11,9 @@ public class Binary {
         for (int i = 0; i < textToBeEncoded.length(); i++) {
             int currentCharAscii = textToBeEncoded.charAt(i);
             int[] binary = new int[8];
+            int k = 0;
 
             //Getting the binary form and storing in an array
-            int k = 0;
             while (currentCharAscii > 0) {
                 binary[k] = currentCharAscii % 2;
                 currentCharAscii = currentCharAscii / 2;
