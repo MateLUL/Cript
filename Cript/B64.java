@@ -6,7 +6,6 @@ public class B64 {
         String textToBeEncoded = TextIO.input();
         String encodedText = Base64.getEncoder().encodeToString(textToBeEncoded.getBytes());
 
-
         return TextIO.output(encodedText);
     }
 
@@ -20,12 +19,10 @@ public class B64 {
         try {
             byte[] decodedTextInBytes = Base64.getDecoder().decode(b64ToBeDecoded);
             decodedText = new String(decodedTextInBytes);
-        }
-        catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             System.err.println("Not a Base64 string (IllegalArgumentException).");
             System.exit(1);
         }
-
 
         return TextIO.output(decodedText);
     }

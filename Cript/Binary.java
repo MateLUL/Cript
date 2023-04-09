@@ -23,6 +23,7 @@ public class Binary {
             //Reversing the array
             for (int l = 0; l < binary.length / 2; l++) {
                 int temp = binary[l];
+
                 binary[l] = binary[binary.length - l - 1];
                 binary[binary.length - l - 1] = temp;
             }
@@ -32,7 +33,6 @@ public class Binary {
         }
 
 
-        //Returning the result
         return TextIO.output(encodedBinaries.toString());
     }
 
@@ -43,23 +43,25 @@ public class Binary {
         StringBuilder decodedText = new StringBuilder();
 
 
-        //Decoding the text and storing it in the ArrayList
-        for (int i = 0; i < binaryToBeDecoded.length; i++) {
+        //Decoding the text and storing it
+        for (String s : binaryToBeDecoded) {
             int sum = 0;
             int n = 0;
 
             //Starting at the end of the octet
-            for (int j = binaryToBeDecoded[i].length() - 1; j != 0 ; j--) {
-                char currentNumber = binaryToBeDecoded[i].charAt(j);
+            for (int j = s.length() - 1; j != 0; j--) {
+                char currentNumber = s.charAt(j);
+                int twoPower = (int) Math.pow(2, n);
 
+                //If the number is not 0 or 1
                 if (currentNumber != '0' && currentNumber != '1') {
                     System.err.println("Not a binary.");
                     System.exit(1);
                 }
 
-                int twoPower = (int) Math.pow(2, n);
-                if (currentNumber == '1')
+                if (currentNumber == '1') {
                     sum += twoPower;
+                }
 
                 n++;
             }
